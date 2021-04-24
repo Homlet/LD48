@@ -1,0 +1,7 @@
+-cp src
+-lib heaps
+-lib nape-haxe4
+-lib polygonal-ds
+-js build/ld48.js
+-main me.samhubbard.ld48.Main
+-debug

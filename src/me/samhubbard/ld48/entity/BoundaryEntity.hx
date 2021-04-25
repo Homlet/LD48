@@ -10,7 +10,7 @@ class BoundaryEntity extends Entity {
     public function new(x: Float, y: Float, width: Float, height: Float) {
         super(x, y, (scene) -> {
             var graphics = new Graphics(scene);
-            graphics.beginFill(0xff0000);
+            graphics.beginFill(Colour.BOUNDARY);
             graphics.drawRect(0, 0, width, height);
             graphics.endFill();
             return graphics;

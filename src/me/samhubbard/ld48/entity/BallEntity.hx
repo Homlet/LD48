@@ -22,7 +22,7 @@ class BallEntity extends Entity {
     public function new(x: Float, y: Float, speed: Float, isMain: Bool) {
         super(x, y, (scene) -> {
             var graphics = new Graphics(scene);
-            graphics.beginFill((isMain) ? 0xffffff : 0x0000ff);
+            graphics.beginFill((isMain) ? Colour.BALL_MAIN : Colour.BALL_FREE);
             graphics.drawRect(-10, -10, 20, 20);
             graphics.endFill();
             return graphics;
@@ -54,11 +54,6 @@ class BallEntity extends Entity {
     }
 
 	private function onAdd() {
-        registerCollisionCallback(CbEvent.BEGIN, EntityType.PADDLE, (paddle) -> {
-            if (Key.isDown(Key.SPACE)) {
-                weldTo(paddle);
-            }
-        });
         registerCollisionCallback(CbEvent.END, EntityType.PADDLE, (paddle) -> {
             body.velocity.x += cast(paddle, PaddleEntity).momentum;
             body.position.y += 2;
@@ -90,15 +85,7 @@ class BallEntity extends Entity {
     }
 
     private function update(dt: Float) {
-        if (welded) {
-            if (!Key.isDown(Key.SPACE)) {
-                var paddle = weldee;
-                if (unweld()) {
-                    body.velocity = Vec2.get(paddle.body.velocity.x, maxSpeed * 0.75);
-                    motion(dt);
-                }
-            }
-        } else {
+        if (!welded) {
             motion(dt);
         }
     }

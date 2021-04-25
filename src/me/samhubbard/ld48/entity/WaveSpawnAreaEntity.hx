@@ -35,11 +35,9 @@ class WaveSpawnAreaEntity extends Entity {
         registerSensorCallback(CbEvent.BEGIN, EntityType.BLOCK, (block) -> {
             justSpawned = false;
             blockCount++;
-            trace(blockCount);
         });
         registerSensorCallback(CbEvent.END, EntityType.BLOCK, (block) -> {
             blockCount--;
-            trace(blockCount);
         });
     }
 
@@ -52,7 +50,6 @@ class WaveSpawnAreaEntity extends Entity {
 
     private function update(dt: Float) {
         if (blockCount == 0 && !justSpawned) {
-            trace("SPAWN");
             spawn();
         }
     }

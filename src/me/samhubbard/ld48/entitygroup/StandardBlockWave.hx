@@ -7,10 +7,10 @@ class StandardBlockWave extends BlockWave {
 
 	public function generateBlocks(y: Float): ArrayList<BlockEntity> {
 		var output = new ArrayList<BlockEntity>();
-        var x = 60;
-        while (x <= Settings.WIDTH - 60) {
+        var x = 20 + Settings.BLOCK_WIDTH;
+        while (x <= Settings.PLAY_WIDTH - 20 - Settings.BLOCK_WIDTH) {
             output.add(new BlockEntity(x, y));
-            x += 40;
+            x += Settings.BLOCK_WIDTH + 20;
         }
         return output;
 	}

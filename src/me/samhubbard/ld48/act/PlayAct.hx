@@ -1,5 +1,6 @@
 package me.samhubbard.ld48.act;
 
+import me.samhubbard.ld48.entity.HUDEntity;
 import me.samhubbard.ld48.entity.WaveSpawnAreaEntity;
 import me.samhubbard.ld48.entitygroup.StandardBlockWave;
 import polygonal.ds.ArrayList;
@@ -24,20 +25,21 @@ class PlayAct extends Act {
     public function init() {
         state = new PlayState(3);
 
-        paddle = new PaddleEntity(Settings.WIDTH / 2, 50, 100, Settings.PADDLE_SPEED);
+        paddle = new PaddleEntity(Settings.PLAY_WIDTH / 2, Settings.PADDLE_WIDTH, 100, Settings.PADDLE_SPEED);
         add(paddle);
 
-        add(new BallEntity(Settings.WIDTH / 2, 100, 200, true));
-        add(new BallEntity(Settings.WIDTH / 2 - 40, 100, 200, false));
-        add(new BallEntity(Settings.WIDTH / 2 + 40, 100, 200, false));
+        add(new BallEntity(Settings.PLAY_WIDTH / 2, 100, 200, true));
+        add(new BallEntity(Settings.PLAY_WIDTH / 2 - 40, 100, 200, false));
+        add(new BallEntity(Settings.PLAY_WIDTH / 2 + 40, 100, 200, false));
 
-        add(new FailSensorEntity(0, -50, Settings.WIDTH, 50));
-        add(new PlayAreaSensorEntity(-80, -80, Settings.WIDTH + 160, Settings.HEIGHT + 160));
-        add(new WaveSpawnAreaEntity(0, Settings.HEIGHT, Settings.WIDTH, 30));
+        add(new FailSensorEntity(0, -50, Settings.PLAY_WIDTH, 50));
+        add(new PlayAreaSensorEntity(0, -80, Settings.PLAY_WIDTH, Settings.HEIGHT + 100));
+        add(new WaveSpawnAreaEntity(0, Settings.HEIGHT, Settings.PLAY_WIDTH, 30));
+        add(new HUDEntity(Settings.PLAY_WIDTH, 0, Settings.WIDTH - Settings.PLAY_WIDTH, state));
 
         add(new BoundaryEntity(0, 0, 20, Settings.HEIGHT));
-        add(new BoundaryEntity(Settings.WIDTH - 20, 0, 20, Settings.HEIGHT));
-        add(new BoundaryEntity(0, Settings.HEIGHT, Settings.WIDTH, 20));
+        add(new BoundaryEntity(Settings.PLAY_WIDTH - 20, 0, 20, Settings.HEIGHT));
+        add(new BoundaryEntity(0, Settings.HEIGHT, Settings.PLAY_WIDTH, 20));
     }
 
 	public function update(dt: Float) {}
@@ -57,6 +59,37 @@ class PlayAct extends Act {
             }
         } else {
             remove(ball);
+        }
+    }
+
+    public function addScore(value: Int) {
+        state.score += value;
+    }
+
+    public function takeMagnet(amount: Float): Bool {
+        if (state.magnetCooldown) {
+            return false;
+        }
+
+        if (state.magnet > 0) {
+            state.magnet = Math.max(0, state.magnet - amount);
+            if (state.magnet == 0) {
+                state.magnetCooldown = true;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public function refillMagnet(amount: Float) {
+        if (state.magnet < 100) {
+            state.magnet = Math.min(state.magnet + amount, 100);
+        }
+
+        if (state.magnet > 20) {
+            state.magnetCooldown = false;
         }
     }
 

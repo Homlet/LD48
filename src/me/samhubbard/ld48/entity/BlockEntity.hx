@@ -10,14 +10,14 @@ class BlockEntity extends Entity {
     public function new(x: Float, y: Float) {
         super(x, y, (scene) -> {
             var graphics = new Graphics(scene);
-            graphics.beginFill(0x00ff00);
-            graphics.drawRect(-20, -10, 40, 20);
+            graphics.beginFill(Colour.BLOCK);
+            graphics.drawRect(-Settings.BLOCK_WIDTH / 2, -10, Settings.BLOCK_WIDTH, 20);
             graphics.endFill();
             return graphics;
         }, BodyType.KINEMATIC, EntityType.BLOCK);
 
         // Create the collider
-        var shape = new Polygon(Polygon.rect(-20, -10, 40, 20));
+        var shape = new Polygon(Polygon.rect(-Settings.BLOCK_WIDTH / 2, -10, Settings.BLOCK_WIDTH, 20));
         shape.material = Settings.MATERIAL_BOUNCY;
         body.shapes.add(shape);
     }

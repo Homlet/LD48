@@ -1,5 +1,6 @@
 package me.samhubbard.game;
 
+import h2d.Object;
 import h2d.Drawable;
 import h2d.Scene;
 import nape.callbacks.PreFlag;
@@ -24,7 +25,7 @@ abstract class Entity implements Actor {
     public final key: Int;
 
     // TODO: better solution
-    private final drawableFactory: Scene -> Drawable;
+    private final drawableFactory: Scene -> Object;
 
     private final cbType: CbType;
 
@@ -36,13 +37,13 @@ abstract class Entity implements Actor {
 
     private var welded(get, never): Bool;
 
-    private var drawable: Drawable;
+    private var drawable: Object;
 
     private var act: Act;
 
     private var group: EntityGroup;
 
-	private function new(x: Float, y: Float, drawableFactory: Scene -> Drawable,
+	private function new(x: Float, y: Float, drawableFactory: Scene -> Object,
                          bodyType: BodyType=null, entityType: CbType=null) {
         key = HashKey.next();
         this.drawableFactory = drawableFactory;

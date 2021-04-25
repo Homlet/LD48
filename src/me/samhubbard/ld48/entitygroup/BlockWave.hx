@@ -1,12 +1,12 @@
 package me.samhubbard.ld48.entitygroup;
 
+import me.samhubbard.ld48.entity.Destroyable;
 import me.samhubbard.game.EntityGroup;
 import polygonal.ds.ArrayList;
-import me.samhubbard.ld48.entity.BlockEntity;
 
 abstract class BlockWave extends EntityGroup {
 
-	private abstract function generateBlocks(y: Float): ArrayList<BlockEntity>;
+	private abstract function generateBlocks(y: Float): ArrayList<Destroyable>;
 
     public function spawn(y: Float) {
 		removeAll();

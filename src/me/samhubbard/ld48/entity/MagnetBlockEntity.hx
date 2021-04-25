@@ -1,17 +1,15 @@
 package me.samhubbard.ld48.entity;
 
 import me.samhubbard.ld48.act.PlayAct;
-import nape.phys.BodyType;
 import nape.shape.Polygon;
-import me.samhubbard.game.Entity;
 import h2d.Graphics;
 
-class BlockEntity extends Destroyable {
+class MagnetBlockEntity extends Destroyable {
 
     public function new(x: Float, y: Float) {
         super(x, y, (scene) -> {
             var graphics = new Graphics(scene);
-            graphics.beginFill(Colour.BLOCK);
+            graphics.beginFill(Colour.MAGNET);
             graphics.drawRect(-Settings.BLOCK_WIDTH / 2, -10, Settings.BLOCK_WIDTH, 20);
             graphics.endFill();
             return graphics;
@@ -24,7 +22,9 @@ class BlockEntity extends Destroyable {
     }
 
     public function destroy() {
-        cast(act, PlayAct).addScore(Score.BLOCK);
+        var playAct = cast(act, PlayAct);
+        playAct.addScore(Score.MAGNET_BLOCK);
+        playAct.refillMagnet(Settings.BLOCK_MAGNET_AMOUNT);
         remove();
     }
 

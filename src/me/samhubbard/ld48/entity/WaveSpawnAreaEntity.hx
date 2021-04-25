@@ -1,5 +1,7 @@
 package me.samhubbard.ld48.entity;
 
+import me.samhubbard.ld48.entitygroup.BlockWave;
+import me.samhubbard.ld48.entitygroup.PowerupBlockWave;
 import me.samhubbard.ld48.entitygroup.StandardBlockWave;
 import me.samhubbard.game.Entity;
 import nape.callbacks.CbEvent;
@@ -42,7 +44,12 @@ class WaveSpawnAreaEntity extends Entity {
     }
 
     private function spawn() {
-        var wave = new StandardBlockWave();
+        var wave: BlockWave = null;
+        if (Math.random() < 0.2) {
+            wave = new StandardBlockWave();
+        } else {
+            wave = new PowerupBlockWave();
+        }
         wave.spawn(spawnY);
         act.add(wave);
         justSpawned = true;

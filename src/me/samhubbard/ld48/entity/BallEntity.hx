@@ -68,7 +68,7 @@ class BallEntity extends Entity {
             }
         });
         registerCollisionCallback(CbEvent.END, EntityType.BLOCK, (block) -> {
-            cast(block, BlockEntity).destroy();
+            cast(block, Destroyable).destroy();
         });
     }
 

@@ -28,9 +28,11 @@ class Settings {
 
 	public static final PADDLE_MAGNET_REFILL_RATE: Float = 5;
 
-    public static final BLOCK_WIDTH: Float = 40;
+    public static final BLOCK_WIDTH: Float = 50;
 
     public static final BLOCK_SCROLL_SPEED: Float = 20;
+
+    public static final BLOCK_MAGNET_AMOUNT: Float = 33;
 
     public static final HUD_MAGNET_HEIGHT: Float = 100;
 

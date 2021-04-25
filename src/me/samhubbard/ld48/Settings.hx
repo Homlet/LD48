@@ -36,5 +36,7 @@ class Settings {
 
     public static final HUD_MAGNET_HEIGHT: Float = 100;
 
+	public static final HOLE_CHANCE: Float = 0.3;
+
     public static final MATERIAL_BOUNCY: Material = new Material(1.0, 0.0, 0.0, 1.0, 0.0);
 }

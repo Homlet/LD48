@@ -4,26 +4,18 @@ import me.samhubbard.ld48.entity.Destroyable;
 import polygonal.ds.ArrayList;
 import me.samhubbard.ld48.entity.BlockEntity;
 
-class PowerupBlockWave extends BlockWave {
+class HoleyBlockWave extends BlockWave {
 
-    private final powerup: Class<Destroyable>;
-
-    public function new(powerup: Class<Destroyable>) {
+    public function new() {
         super();
-
-        this.powerup = powerup;
     }
 
 	public function generateBlocks(y: Float): ArrayList<Destroyable> {
-        var powerupPosition = Math.random() * Settings.PLAY_WIDTH;
-        var powerupPlaced = false;
 		var output = new ArrayList<Destroyable>();
         var x = 20 + Settings.BLOCK_WIDTH;
         while (x <= Settings.PLAY_WIDTH - 20 - Settings.BLOCK_WIDTH) {
-            if (x > powerupPosition && !powerupPlaced) {
-                output.add(Type.createInstance(powerup, [x, y]));
-                powerupPlaced = true;
-            } else {
+            var roll = Math.random();
+            if (roll > Settings.HOLE_CHANCE) {
                 output.add(new BlockEntity(x, y));
             }
             x += Settings.BLOCK_WIDTH + 20;

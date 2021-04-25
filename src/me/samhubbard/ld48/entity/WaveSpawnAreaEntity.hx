@@ -1,5 +1,6 @@
 package me.samhubbard.ld48.entity;
 
+import me.samhubbard.ld48.entitygroup.HoleyBlockWave;
 import me.samhubbard.ld48.entitygroup.BlockWave;
 import me.samhubbard.ld48.entitygroup.PowerupBlockWave;
 import me.samhubbard.ld48.entitygroup.StandardBlockWave;
@@ -46,8 +47,10 @@ class WaveSpawnAreaEntity extends Entity {
     private function spawn() {
         var wave: BlockWave = null;
         var roll = Math.random();
-        if (roll > 0.4) {
+        if (roll > 0.8) {
             wave = new StandardBlockWave();
+        } else if (roll > 0.4) {
+            wave = new HoleyBlockWave();
         } else if (roll > 0.2) {
             wave = new PowerupBlockWave(MagnetBlockEntity);
         } else if (roll > 0.1) {

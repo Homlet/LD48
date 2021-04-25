@@ -44,6 +44,10 @@ class PlayAct extends Act {
 
 	public function update(dt: Float) {}
 
+    public function extraBall() {
+        state.ballsLeft++;
+    }
+
     public function resetBall(ball: BallEntity) {
         ball.reset(paddle.body.position.x, paddle.body.position.y + 30);
     }

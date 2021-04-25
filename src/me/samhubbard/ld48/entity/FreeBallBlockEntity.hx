@@ -4,12 +4,12 @@ import me.samhubbard.ld48.act.PlayAct;
 import nape.shape.Polygon;
 import h2d.Graphics;
 
-class BlockEntity extends Destroyable {
+class FreeBallBlockEntity extends Destroyable {
 
     public function new(x: Float, y: Float) {
         super(x, y, (scene) -> {
             var graphics = new Graphics(scene);
-            graphics.beginFill(Colour.BLOCK);
+            graphics.beginFill(Colour.BALL_FREE);
             graphics.drawRect(-Settings.BLOCK_WIDTH / 2, -10, Settings.BLOCK_WIDTH, 20);
             graphics.endFill();
             return graphics;
@@ -22,7 +22,8 @@ class BlockEntity extends Destroyable {
     }
 
     public function destroy() {
-        cast(act, PlayAct).addScore(Score.BLOCK);
+        cast(act, PlayAct).addScore(Score.FREE_BALL_BLOCK);
+        act.add(new BallEntity(body.position.x, body.position.y, Settings.BALL_MIN_SPEED, false));
         remove();
     }
 

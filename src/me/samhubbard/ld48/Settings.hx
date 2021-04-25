@@ -30,7 +30,7 @@ class Settings {
 
     public static final BLOCK_WIDTH: Float = 50;
 
-    public static final BLOCK_SCROLL_SPEED: Float = 20;
+    public static final BLOCK_SCROLL_SPEED: Float = 14;
 
     public static final BLOCK_MAGNET_AMOUNT: Float = 33;
 

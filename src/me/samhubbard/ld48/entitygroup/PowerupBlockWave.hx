@@ -7,6 +7,14 @@ import me.samhubbard.ld48.entity.BlockEntity;
 
 class PowerupBlockWave extends BlockWave {
 
+    private final powerup: Class<Destroyable>;
+
+    public function new(powerup: Class<Destroyable>) {
+        super();
+
+        this.powerup = powerup;
+    }
+
 	public function generateBlocks(y: Float): ArrayList<Destroyable> {
         var powerupPosition = Math.random() * Settings.PLAY_WIDTH;
         var powerupPlaced = false;
@@ -14,8 +22,7 @@ class PowerupBlockWave extends BlockWave {
         var x = 20 + Settings.BLOCK_WIDTH;
         while (x <= Settings.PLAY_WIDTH - 20 - Settings.BLOCK_WIDTH) {
             if (x > powerupPosition && !powerupPlaced) {
-                // TODO: random powerup
-                output.add(new MagnetBlockEntity(x, y));
+                output.add(Type.createInstance(powerup, [x, y]));
                 powerupPlaced = true;
             } else {
                 output.add(new BlockEntity(x, y));

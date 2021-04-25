@@ -1,5 +1,6 @@
-package me.samhubbard.ld48;
+package me.samhubbard.ld48.entity;
 
+import me.samhubbard.ld48.act.PlayAct;
 import me.samhubbard.game.Entity;
 import nape.callbacks.CbEvent;
 import nape.phys.BodyType;
@@ -12,7 +13,6 @@ class FailSensorEntity extends Entity {
 
         // Create the collider
         var shape = new Polygon(Polygon.rect(0, 0, width, height));
-        shape.material = Settings.MATERIAL_BOUNCY;
         shape.sensorEnabled = true;
         body.shapes.add(shape);
     }
@@ -20,7 +20,7 @@ class FailSensorEntity extends Entity {
 	private function onAdd() {
         registerSensorCallback(CbEvent.END, EntityType.BALL, (ball) -> {
             if (act is PlayAct) {
-                cast(act, PlayAct).resetBall(cast(ball, BallEntity));
+                cast(act, PlayAct).lostBall(cast(ball, BallEntity));
             }
         });
     }

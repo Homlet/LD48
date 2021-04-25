@@ -1,4 +1,4 @@
-package me.samhubbard.ld48;
+package me.samhubbard.ld48.entity;
 
 import nape.phys.BodyType;
 import me.samhubbard.game.Entity;
@@ -50,8 +50,4 @@ class PaddleEntity extends Entity {
     }
 
 	private function onRemove() {}
-
-	function get_momentum():Float {
-		throw new haxe.exceptions.NotImplementedException();
-	}
 }

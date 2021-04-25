@@ -14,11 +14,11 @@ class Settings {
 
     public static final BALL_RESET_RATE: Float = 0.5;
 
-    public static final PADDLE_SPEED: Float = 400;
+    public static final PADDLE_SPEED: Float = 600;
 
-    public static final PADDLE_MAX_MOMENTUM: Float = 500;
+    public static final PADDLE_MAX_MOMENTUM: Float = 400;
 
-    public static final PADDLE_MOMENTUM_RATE: Float = 2500;
+    public static final PADDLE_MOMENTUM_RATE: Float = 3000;
 
     public static final MATERIAL_BOUNCY: Material = new Material(1.0, 0.0, 0.0, 1.0, 0.0);
 }

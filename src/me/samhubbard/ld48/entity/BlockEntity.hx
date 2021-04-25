@@ -1,4 +1,4 @@
-package me.samhubbard.ld48;
+package me.samhubbard.ld48.entity;
 
 import nape.phys.BodyType;
 import nape.shape.Polygon;

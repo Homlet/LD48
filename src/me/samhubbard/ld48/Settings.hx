@@ -8,7 +8,7 @@ class Settings {
 
     public static final HEIGHT: Int = 640;
 
-    public static final BALL_MIN_SPEED: Float = 70;
+    public static final BALL_MIN_SPEED: Float = 120;
 
     public static final BALL_MAX_SPEED: Float = 600;
 

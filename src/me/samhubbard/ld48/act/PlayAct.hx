@@ -1,5 +1,7 @@
 package me.samhubbard.ld48.act;
 
+import me.samhubbard.ld48.entitygroup.StandardBlockWave;
+import polygonal.ds.ArrayList;
 import me.samhubbard.ld48.state.PlayState;
 import me.samhubbard.ld48.entity.PlayAreaSensorEntity;
 import me.samhubbard.ld48.entity.BlockEntity;
@@ -7,6 +9,7 @@ import me.samhubbard.ld48.entity.BoundaryEntity;
 import me.samhubbard.ld48.entity.FailSensorEntity;
 import me.samhubbard.ld48.entity.BallEntity;
 import me.samhubbard.ld48.entity.PaddleEntity;
+import me.samhubbard.ld48.entitygroup.BlockWave;
 import me.samhubbard.game.Act;
 
 class PlayAct extends Act {
@@ -14,6 +17,8 @@ class PlayAct extends Act {
     private var state: PlayState;
 
     private var paddle: PaddleEntity;
+
+    private var activeWaves: ArrayList<BlockWave>;
 
     public function init() {
         state = new PlayState(3);
@@ -31,14 +36,12 @@ class PlayAct extends Act {
         add(new BoundaryEntity(Settings.WIDTH - 20, 0, 20, Settings.HEIGHT));
         add(new BoundaryEntity(0, Settings.HEIGHT, Settings.WIDTH, 20));
 
-        var x = 60;
-        while (x <= Settings.WIDTH - 60) {
-            var y = Settings.HEIGHT - 20;
-            while (y > Settings.HEIGHT / 2) {
-                add(new BlockEntity(x, y));
-                y -= 40;
-            }
-            x += 40;
+        var y = Settings.HEIGHT - 20;
+        while (y > Settings.HEIGHT / 2) {
+            var wave = new StandardBlockWave();
+            wave.spawn(y);
+            add(wave);
+            y -= 40;
         }
     }
 

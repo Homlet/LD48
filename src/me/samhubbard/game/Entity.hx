@@ -19,7 +19,7 @@ import nape.phys.BodyType;
 import polygonal.ds.Hashable;
 import polygonal.ds.HashKey;
 
-abstract class Entity implements Hashable {
+abstract class Entity implements Actor {
 
     public final key: Int;
 
@@ -39,6 +39,8 @@ abstract class Entity implements Hashable {
     private var drawable: Drawable;
 
     private var act: Act;
+
+    private var group: EntityGroup;
 
 	private function new(x: Float, y: Float, drawableFactory: Scene -> Drawable,
                          bodyType: BodyType=null, entityType: CbType=null) {
@@ -129,6 +131,7 @@ abstract class Entity implements Hashable {
         return false;
     }
 
+    @:allow(me.samhubbard.game.EntityGroup)
     @:allow(me.samhubbard.game.Act)
     private function notifyAdded(act: Act, scene: Scene) {
         this.act = act;
@@ -142,6 +145,12 @@ abstract class Entity implements Hashable {
         onAdd();
     }
 
+    @:allow(me.samhubbard.game.EntityGroup)
+    private function notifyAddedToGroup(group: EntityGroup) {
+        this.group = group;
+    }
+
+    @:allow(me.samhubbard.game.EntityGroup)
     @:allow(me.samhubbard.game.Act)
     private function notifyUpdate(dt: Float) {
         update(dt);
@@ -151,6 +160,7 @@ abstract class Entity implements Hashable {
         }
     }
     
+    @:allow(me.samhubbard.game.EntityGroup)
     @:allow(me.samhubbard.game.Act)
     private function notifyRemoved() {
         body.space = null;
@@ -168,6 +178,23 @@ abstract class Entity implements Hashable {
         act = null;
 
         onRemove();
+    }
+
+    @:allow(me.samhubbard.game.EntityGroup)
+    private function notifyRemoveFromGroup() {
+        group = null;
+    }
+
+    public function remove(): Bool {
+        if (group != null) {
+            group.remove(this);
+        } else if (act != null) {
+            act.remove(this);
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
     private abstract function onAdd(): Void;

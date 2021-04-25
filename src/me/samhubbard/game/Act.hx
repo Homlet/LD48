@@ -1,6 +1,6 @@
 package me.samhubbard.game;
 
-import h2d.Camera;
+import polygonal.ds.ArrayList;
 import hxd.Key;
 import nape.space.Space;
 import h2d.Scene;
@@ -9,7 +9,7 @@ import polygonal.ds.ListSet;
 
 abstract class Act {
 
-    private static inline final ENTITY_SET_SLOT_COUNT = 1024;
+    private static inline final ACTOR_SET_SLOT_COUNT = 1024;
 
     public final scene: Scene;
 
@@ -19,11 +19,11 @@ abstract class Act {
 
     private var paused(default, null): Bool;
 
-    private final entitiesToAdd: ListSet<Entity>;
+    private final actorsToAdd: ListSet<Actor>;
 
-    private final entities: HashSet<Entity>;
+    private final actors: HashSet<Actor>;
 
-    private final entitiesToRemove: ListSet<Entity>;
+    private final actorsToRemove: ListSet<Actor>;
 
     public function new(width: Int, height: Int) {
         scene = new Scene();
@@ -31,9 +31,9 @@ abstract class Act {
         space = new Space();
         disposed = false;
         paused = false;
-        entitiesToAdd = new ListSet<Entity>();
-        entities = new HashSet<Entity>(ENTITY_SET_SLOT_COUNT);
-        entitiesToRemove = new ListSet<Entity>();
+        actorsToAdd = new ListSet<Actor>();
+        actors = new HashSet<Actor>(ACTOR_SET_SLOT_COUNT);
+        actorsToRemove = new ListSet<Actor>();
     }
 
     public function pause() {
@@ -62,61 +62,85 @@ abstract class Act {
             return;
         }
 
-        for (entity in entitiesToAdd) {
-            entity.notifyAdded(this, scene);
-            entities.set(entity);
+        for (actor in actorsToAdd) {
+            actor.notifyAdded(this, scene);
+            actors.set(actor);
         }
-        entitiesToAdd.clear();
+        actorsToAdd.clear();
 
         update(dt);
 
-        for (entity in entities) {
-            entity.notifyUpdate(dt);
+        for (actor in actors) {
+            actor.notifyUpdate(dt);
         }
 
         space.step(dt);
 
-        for (entity in entitiesToRemove) {
-            entity.notifyRemoved();
-            entities.remove(entity);
+        for (actor in actorsToRemove) {
+            actor.notifyRemoved();
+            actors.remove(actor);
         }
-        entitiesToRemove.clear();
+        actorsToRemove.clear();
     }
 
     public abstract function init(): Void;
 
     public abstract function update(dt: Float): Void;
 
-    public function add(entity: Entity): Bool {
+    public function addAll(actors: ArrayList<Actor>): Bool {
+        var success = true;
+
+        for (actor in actors) {
+            if (!add(actor)) {
+                success = false;
+            }
+        }
+
+        return success;
+    }
+
+    public function add(actor: Actor): Bool {
         if (disposed) {
             return false;
         }
 
-        entitiesToAdd.set(entity);
+        actorsToAdd.set(actor);
         return true;
     }
 
-    public function remove(entity: Entity): Bool {
+    public function remove(actor: Actor): Bool {
         if (disposed) {
             return false;
         }
 
-        if (!entities.has(entity)) {
+        if (!actors.has(actor)) {
             return false;
         }
 
-        entitiesToRemove.set(entity);
+        actorsToRemove.set(actor);
+        return true;
+    }
+
+    public function removeAll(): Bool {
+        if (disposed) {
+            return false;
+        }
+
+        for (actor in actors) {
+            actorsToRemove.set(actor);
+        }
+
         return true;
     }
 
     public function dispose() {
-        // TODO: check we are not currently adding or removing entities
-        for (entity in entities) {
-            entity.notifyRemoved();
+        // TODO: check we are not currently adding or removing actors
+        for (actor in actors) {
+            actor.notifyRemoved();
         }
-        entities.clear();
-        entitiesToAdd.clear();
-        entitiesToRemove.clear();
+        actors.clear();
+        actorsToAdd.clear();
+        actorsToRemove.clear();
 
         scene.dispose();
         disposed = true;

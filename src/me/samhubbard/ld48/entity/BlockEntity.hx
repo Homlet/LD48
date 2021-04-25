@@ -23,7 +23,8 @@ class BlockEntity extends Entity {
     }
 
     public function destroy() {
-        act.remove(this);
+        // TODO: special effects, power ups
+        remove();
     }
 
 	private function onAdd() {}

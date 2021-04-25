@@ -25,6 +25,9 @@ class HUDEntity extends Entity {
             var root = new Object(scene);
             var font = DefaultFont.get();
             score = new Text(font, root);
+            score.x = 5;
+            score.y = 2;
+            score.scale(1.5);
             drawScore();
             magnet = new Graphics(root);
             drawMagnet();

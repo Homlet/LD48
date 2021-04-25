@@ -46,11 +46,11 @@ class WaveSpawnAreaEntity extends Entity {
     private function spawn() {
         var wave: BlockWave = null;
         var roll = Math.random();
-        if (roll > 0.2) {
+        if (roll > 0.4) {
             wave = new StandardBlockWave();
-        } else if (roll > 0.1) {
+        } else if (roll > 0.2) {
             wave = new PowerupBlockWave(MagnetBlockEntity);
-        } else if (roll > 0.05) {
+        } else if (roll > 0.1) {
             wave = new PowerupBlockWave(FreeBallBlockEntity);
         } else {
             wave = new PowerupBlockWave(ExtraBallBlockEntity);

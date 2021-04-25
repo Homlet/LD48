@@ -16,9 +16,12 @@ abstract class Game extends App {
         this.height = height;
     }
 
-    public function setAct(act: Class<Act>) {
-        this.act = Type.createInstance(act, [width, height]);
-        this.act.init();
+    public function setAct(act: Class<Act>, userData: Dynamic = null) {
+        if (this.act != null) {
+            this.act.dispose();
+        }
+        this.act = Type.createInstance(act, [width, height, this]);
+        this.act.init(userData);
         this.setScene2D(this.act.scene, false);
     }
 

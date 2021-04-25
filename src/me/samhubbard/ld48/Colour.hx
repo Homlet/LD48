@@ -15,4 +15,8 @@ class Colour {
     public static final BALL_FREE = 0x0000ff;
 
     public static final BLOCK = 0x00ff00;
+
+    public static final TEXT_GAME_OVER = 0xff0000;
+
+    public static final TEXT_FINAL_SCORE = 0xffffff;
 }

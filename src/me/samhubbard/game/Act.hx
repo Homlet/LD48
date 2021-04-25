@@ -25,7 +25,9 @@ abstract class Act {
 
     private final actorsToRemove: ListSet<Actor>;
 
-    public function new(width: Int, height: Int) {
+    private final game: Game;
+
+    public function new(width: Int, height: Int, game: Game) {
         scene = new Scene();
         scene.scaleMode = ScaleMode.LetterBox(width, height);
         space = new Space();
@@ -34,6 +36,7 @@ abstract class Act {
         actorsToAdd = new ListSet<Actor>();
         actors = new HashSet<Actor>(ACTOR_SET_SLOT_COUNT);
         actorsToRemove = new ListSet<Actor>();
+        this.game = game;
     }
 
     public function pause() {
@@ -83,7 +86,7 @@ abstract class Act {
         actorsToRemove.clear();
     }
 
-    public abstract function init(): Void;
+    public abstract function init(userData: Dynamic): Void;
 
     public abstract function update(dt: Float): Void;
 

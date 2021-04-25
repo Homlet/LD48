@@ -22,7 +22,7 @@ class PlayAct extends Act {
 
     private var activeWaves: ArrayList<BlockWave>;
 
-    public function init() {
+    public function init(userData: Dynamic) {
         state = new PlayState(3);
 
         paddle = new PaddleEntity(Settings.PLAY_WIDTH / 2, Settings.PADDLE_WIDTH, 100, Settings.PADDLE_SPEED);
@@ -98,6 +98,6 @@ class PlayAct extends Act {
     }
 
     public function fail() {
-        trace("FAIL");
+        game.setAct(GameOverAct, state);
     }
 }

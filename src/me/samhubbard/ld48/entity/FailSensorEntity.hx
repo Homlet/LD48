@@ -22,6 +22,11 @@ class FailSensorEntity extends Entity {
     }
 
 	private function onAdd() {
+        registerSensorCallback(CbEvent.BEGIN, EntityType.BLOCK, (ball) -> {
+            if (act is PlayAct) {
+                cast(act, PlayAct).fail();
+            }
+        });
         registerSensorCallback(CbEvent.END, EntityType.BALL, (ball) -> {
             if (act is PlayAct) {
                 cast(act, PlayAct).lostBall(cast(ball, BallEntity));

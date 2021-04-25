@@ -19,7 +19,7 @@ abstract class BlockWave extends EntityGroup {
 
 	private function update(dt:Float) {
 		for (block in entities) {
-			block.body.position.y -= dt;
+			block.body.velocity.y = -Settings.BLOCK_SCROLL_SPEED;
 		}
 	}
 

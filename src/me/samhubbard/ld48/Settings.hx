@@ -20,5 +20,7 @@ class Settings {
 
     public static final PADDLE_MOMENTUM_RATE: Float = 3000;
 
+    public static final BLOCK_SCROLL_SPEED: Float = 20;
+
     public static final MATERIAL_BOUNCY: Material = new Material(1.0, 0.0, 0.0, 1.0, 0.0);
 }

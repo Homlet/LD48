@@ -13,4 +13,6 @@ class EntityType {
     public static final FAIL_SENSOR = new CbType();
 
     public static final BLOCK = new CbType();
+
+	public static final SPAWNER = new CbType();
 }

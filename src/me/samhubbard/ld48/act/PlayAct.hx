@@ -1,5 +1,6 @@
 package me.samhubbard.ld48.act;
 
+import me.samhubbard.ld48.entity.WaveSpawnAreaEntity;
 import me.samhubbard.ld48.entitygroup.StandardBlockWave;
 import polygonal.ds.ArrayList;
 import me.samhubbard.ld48.state.PlayState;
@@ -32,17 +33,11 @@ class PlayAct extends Act {
 
         add(new FailSensorEntity(0, -50, Settings.WIDTH, 50));
         add(new PlayAreaSensorEntity(-80, -80, Settings.WIDTH + 160, Settings.HEIGHT + 160));
+        add(new WaveSpawnAreaEntity(0, Settings.HEIGHT, Settings.WIDTH, 30));
+
         add(new BoundaryEntity(0, 0, 20, Settings.HEIGHT));
         add(new BoundaryEntity(Settings.WIDTH - 20, 0, 20, Settings.HEIGHT));
         add(new BoundaryEntity(0, Settings.HEIGHT, Settings.WIDTH, 20));
-
-        var y = Settings.HEIGHT - 20;
-        while (y > Settings.HEIGHT / 2) {
-            var wave = new StandardBlockWave();
-            wave.spawn(y);
-            add(wave);
-            y -= 40;
-        }
     }
 
 	public function update(dt: Float) {}

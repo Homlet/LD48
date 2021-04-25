@@ -17,10 +17,12 @@ class BallEntity extends Entity {
 
     private var maxSpeed: Float;
 
-    public function new(x: Float, y: Float, speed: Float) {
+    public var isMain(default, null): Bool;
+
+    public function new(x: Float, y: Float, speed: Float, isMain: Bool) {
         super(x, y, (scene) -> {
             var graphics = new Graphics(scene);
-            graphics.beginFill(0xffffff);
+            graphics.beginFill((isMain) ? 0xffffff : 0x0000ff);
             graphics.drawRect(-10, -10, 20, 20);
             graphics.endFill();
             return graphics;
@@ -29,6 +31,7 @@ class BallEntity extends Entity {
         initSpeed = speed;
         minSpeed = Settings.BALL_MIN_SPEED;
         maxSpeed = Settings.BALL_MAX_SPEED;
+        this.isMain = isMain;
 
         // Create the collider
         var shape = new Polygon(Polygon.box(20, 20));

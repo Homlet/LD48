@@ -21,7 +21,9 @@ class PlayAct extends Act {
         paddle = new PaddleEntity(Settings.WIDTH / 2, 50, 100, Settings.PADDLE_SPEED);
         add(paddle);
 
-        add(new BallEntity(Settings.WIDTH / 2, 100, 200));
+        add(new BallEntity(Settings.WIDTH / 2, 100, 200, true));
+        add(new BallEntity(Settings.WIDTH / 2 - 40, 100, 200, false));
+        add(new BallEntity(Settings.WIDTH / 2 + 40, 100, 200, false));
 
         add(new FailSensorEntity(0, -50, Settings.WIDTH, 50));
         add(new PlayAreaSensorEntity(-80, -80, Settings.WIDTH + 160, Settings.HEIGHT + 160));
@@ -47,12 +49,16 @@ class PlayAct extends Act {
     }
 
     public function lostBall(ball: BallEntity) {
-        if (state.ballsLeft > 0) {
-            trace(state.ballsLeft);
-            state.ballsLeft--;
-            resetBall(ball);
+        if (ball.isMain) {
+            if (state.ballsLeft > 0) {
+                trace(state.ballsLeft);
+                state.ballsLeft--;
+                resetBall(ball);
+            } else {
+                fail();
+            }
         } else {
-            fail();
+            remove(ball);
         }
     }
 

@@ -6,6 +6,10 @@ import nape.callbacks.CbEvent;
 import nape.phys.BodyType;
 import nape.shape.Polygon;
 
+/**
+ * Fallback sensor which defines the play area. If a ball leaves the play area
+ * due to a bug it is immediately reset with no penalties to the player.
+ */
 class PlayAreaSensorEntity extends Entity {
 
     public function new(x: Float, y: Float, width: Float, height: Float) {

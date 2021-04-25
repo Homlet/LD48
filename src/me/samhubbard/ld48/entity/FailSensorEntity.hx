@@ -6,6 +6,10 @@ import nape.callbacks.CbEvent;
 import nape.phys.BodyType;
 import nape.shape.Polygon;
 
+/**
+ * Sensor entity which defines the failure region immediately behind the paddle. If a
+ * ball or block reaches this area, a penalty is given to the player.
+ */
 class FailSensorEntity extends Entity {
 
     public function new(x: Float, y: Float, width: Float, height: Float) {

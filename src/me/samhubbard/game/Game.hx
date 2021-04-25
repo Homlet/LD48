@@ -23,6 +23,6 @@ abstract class Game extends App {
     }
 
     override function update(dt: Float) {
-        act.update(dt);
+        act.notifyUpdate(dt);
     }
 }

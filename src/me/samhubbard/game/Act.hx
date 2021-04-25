@@ -1,5 +1,7 @@
 package me.samhubbard.game;
 
+import h2d.Camera;
+import hxd.Key;
 import nape.space.Space;
 import h2d.Scene;
 import polygonal.ds.HashSet;
@@ -15,6 +17,8 @@ abstract class Act {
 
     public var disposed(default, null): Bool;
 
+    private var paused(default, null): Bool;
+
     private final entitiesToAdd: ListSet<Entity>;
 
     private final entities: HashSet<Entity>;
@@ -23,18 +27,38 @@ abstract class Act {
 
     public function new(width: Int, height: Int) {
         scene = new Scene();
-        scene.scaleMode = ScaleMode.Fixed(width, height, 1, ScaleModeAlign.Center, ScaleModeAlign.Center);
+        scene.scaleMode = ScaleMode.LetterBox(width, height);
         space = new Space();
         disposed = false;
+        paused = false;
         entitiesToAdd = new ListSet<Entity>();
         entities = new HashSet<Entity>(ENTITY_SET_SLOT_COUNT);
         entitiesToRemove = new ListSet<Entity>();
     }
 
-    public abstract function init(): Void;
+    public function pause() {
+        paused = true;
+    }
 
-    public function update(dt: Float) {
+    public function unpause() {
+        paused = false;
+    }
+
+    public function togglePause(): Bool {
+        paused = !paused;
+        return paused;
+    }
+
+    public function notifyUpdate(dt: Float) {
         if (disposed) {
+            return;
+        }
+
+        if (Key.isPressed(Key.ESCAPE)) {
+            togglePause();
+        }
+
+        if (paused) {
             return;
         }
 
@@ -44,9 +68,13 @@ abstract class Act {
         }
         entitiesToAdd.clear();
 
+        update(dt);
+
         for (entity in entities) {
             entity.notifyUpdate(dt);
         }
+
+        space.step(dt);
 
         for (entity in entitiesToRemove) {
             entity.notifyRemoved();
@@ -54,6 +82,10 @@ abstract class Act {
         }
         entitiesToRemove.clear();
     }
+
+    public abstract function init(): Void;
+
+    public abstract function update(dt: Float): Void;
 
     public function add(entity: Entity): Bool {
         if (disposed) {

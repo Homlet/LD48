@@ -21,7 +21,7 @@ class FailSensorEntity extends Entity {
         body.shapes.add(shape);
     }
 
-	private function onAdd() {
+    private function onAdd() {
         registerSensorCallback(CbEvent.BEGIN, EntityType.BLOCK, (ball) -> {
             if (act is PlayAct) {
                 cast(act, PlayAct).fail();
@@ -36,5 +36,5 @@ class FailSensorEntity extends Entity {
 
     private function update(dt: Float) {}
 
-	private function onRemove() {}
+    private function onRemove() {}
 }

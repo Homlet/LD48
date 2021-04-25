@@ -48,6 +48,7 @@ class HUDEntity extends Entity {
         magnet.clear();
         magnet.beginFill((state.magnetCooldown) ? Colour.MAGNET_COOLDOWN : Colour.MAGNET);
         magnet.drawRect(0, 30, width / 2, Settings.HUD_MAGNET_HEIGHT * state.magnet / 100);
+        magnet.drawRect(0, 32 + Settings.HUD_MAGNET_HEIGHT, width / 2, 3);
         magnet.endFill();
     }
 
@@ -62,7 +63,7 @@ class HUDEntity extends Entity {
         balls.endFill();
     }
 
-	private function onAdd() {}
+    private function onAdd() {}
 
     private function update(dt: Float) {
         if (score != null) {
@@ -78,5 +79,5 @@ class HUDEntity extends Entity {
         }
     }
 
-	private function onRemove() {}
+    private function onRemove() {}
 }

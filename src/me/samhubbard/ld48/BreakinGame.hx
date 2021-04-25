@@ -1,6 +1,6 @@
 package me.samhubbard.ld48;
 
-import me.samhubbard.ld48.act.PlayAct;
+import me.samhubbard.ld48.act.StartAct;
 import me.samhubbard.game.Game;
 
 class BreakinGame extends Game {
@@ -10,6 +10,6 @@ class BreakinGame extends Game {
     }
 
     override function init() {
-        setAct(PlayAct);
+        setAct(StartAct);
     }
 }

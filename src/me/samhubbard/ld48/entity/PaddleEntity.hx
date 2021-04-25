@@ -12,7 +12,7 @@ import hxd.Key;
 
 class PaddleEntity extends Entity {
 
-	public var momentum(default, null): Float;
+    public var momentum(default, null): Float;
 
     private var width: Float;
 
@@ -41,7 +41,7 @@ class PaddleEntity extends Entity {
         body.shapes.add(shape);
     }
 
-	private function onAdd() {
+    private function onAdd() {
         registerCollisionCallback(CbEvent.BEGIN, EntityType.BALL, (ball) -> {
             if (Key.isDown(Key.SPACE)) {
                 addBallToMagnet(cast(ball, BallEntity));
@@ -101,14 +101,14 @@ class PaddleEntity extends Entity {
             momentum = 0;
         }
 
-        body.position.x = Math.min(Math.max(width / 2, body.position.x), Settings.PLAY_WIDTH - width / 2);
+        body.position.x = Math.min(Math.max(width / 2 + 20, body.position.x), Settings.PLAY_WIDTH - width / 2 - 20);
 
         redraw();
     }
 
-	private function onRemove() {}
+    private function onRemove() {}
 
-	function get_isMagnet():Bool {
-		return ballsOnMagnet.size > 0;
-	}
+    function get_isMagnet():Bool {
+        return ballsOnMagnet.size > 0;
+    }
 }

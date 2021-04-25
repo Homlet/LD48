@@ -19,11 +19,11 @@ abstract class EntityGroup implements Actor {
 
     private var added: Bool;
 
-	public function new() {
+    public function new() {
         key = HashKey.next();
         entities = new HashSet<Entity>(ENTITY_SET_SLOT_COUNT);
         added = false;
-	}
+    }
 
     private function add(entity: Entity) {
         entities.set(entity);

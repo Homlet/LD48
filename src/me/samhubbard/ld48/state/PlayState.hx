@@ -10,13 +10,10 @@ class PlayState {
     
     public var ballsLeft: Float;
 
-    public var nextWave: Int;
-
     public function new(ballsLeft: Float) {
         score = 0;
-        magnet = 100;
+        magnet = Settings.PADDLE_MAGNET_START_AMOUNT;
         magnetCooldown = false;
         this.ballsLeft = ballsLeft;
-        nextWave = 1;
     }
 }

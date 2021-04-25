@@ -16,7 +16,7 @@ class Settings {
 
     public static final BALL_RESET_RATE: Float = 0.5;
 
-	public static final PADDLE_WIDTH: Float = 50;
+    public static final PADDLE_WIDTH: Float = 50;
 
     public static final PADDLE_SPEED: Float = 800;
 
@@ -24,9 +24,11 @@ class Settings {
 
     public static final PADDLE_MOMENTUM_RATE: Float = 3000;
 
-	public static final PADDLE_MAGNET_RATE: Float = 30;
+    public static final PADDLE_MAGNET_RATE: Float = 30;
 
-	public static final PADDLE_MAGNET_REFILL_RATE: Float = 5;
+    public static final PADDLE_MAGNET_REFILL_RATE: Float = 1;
+
+    public static final PADDLE_MAGNET_START_AMOUNT: Float = 66;
 
     public static final BLOCK_WIDTH: Float = 50;
 
@@ -36,7 +38,7 @@ class Settings {
 
     public static final HUD_MAGNET_HEIGHT: Float = 100;
 
-	public static final HOLE_CHANCE: Float = 0.3;
+    public static final HOLE_CHANCE: Float = 0.3;
 
     public static final MATERIAL_BOUNCY: Material = new Material(1.0, 0.0, 0.0, 1.0, 0.0);
 }

@@ -14,5 +14,5 @@ class EntityType {
 
     public static final BLOCK = new CbType();
 
-	public static final SPAWNER = new CbType();
+    public static final SPAWNER = new CbType();
 }

@@ -21,7 +21,7 @@ class PlayAreaSensorEntity extends Entity {
         body.shapes.add(shape);
     }
 
-	private function onAdd() {
+    private function onAdd() {
         registerSensorCallback(CbEvent.END, EntityType.BALL, (ball) -> {
             if (act is PlayAct) {
                 cast(act, PlayAct).resetBall(cast(ball, BallEntity));
@@ -32,5 +32,5 @@ class PlayAreaSensorEntity extends Entity {
 
     private function update(dt: Float) {}
 
-	private function onRemove() {}
+    private function onRemove() {}
 }

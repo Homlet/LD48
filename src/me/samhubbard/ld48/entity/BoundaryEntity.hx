@@ -22,9 +22,9 @@ class BoundaryEntity extends Entity {
         body.shapes.add(shape);
     }
 
-	private function onAdd() {}
+    private function onAdd() {}
 
     private function update(dt: Float) {}
 
-	private function onRemove() {}
+    private function onRemove() {}
 }

@@ -10,9 +10,9 @@ class HoleyBlockWave extends BlockWave {
         super();
     }
 
-	public function generateBlocks(y: Float): ArrayList<Destroyable> {
-		var output = new ArrayList<Destroyable>();
-        var x = 20 + Settings.BLOCK_WIDTH;
+    public function generateBlocks(xOffset: Float, y: Float): ArrayList<Destroyable> {
+        var output = new ArrayList<Destroyable>();
+        var x = 20 + xOffset + Settings.BLOCK_WIDTH;
         while (x <= Settings.PLAY_WIDTH - 20 - Settings.BLOCK_WIDTH) {
             var roll = Math.random();
             if (roll > Settings.HOLE_CHANCE) {
@@ -20,6 +20,12 @@ class HoleyBlockWave extends BlockWave {
             }
             x += Settings.BLOCK_WIDTH + 20;
         }
+        if (output.size == 0) {
+            // Probably won't recurse too much. Hacky fix to prevent row
+            // with no blocks at all.
+            trace("HEQ");
+            return generateBlocks(xOffset, y);
+        }
         return output;
-	}
+    }
 }

@@ -29,8 +29,6 @@ class PlayAct extends Act {
         add(paddle);
 
         add(new BallEntity(Settings.PLAY_WIDTH / 2, 100, 200, true));
-        add(new BallEntity(Settings.PLAY_WIDTH / 2 - 40, 100, 200, false));
-        add(new BallEntity(Settings.PLAY_WIDTH / 2 + 40, 100, 200, false));
 
         add(new FailSensorEntity(0, -50, Settings.PLAY_WIDTH, 50));
         add(new PlayAreaSensorEntity(0, -80, Settings.PLAY_WIDTH, Settings.HEIGHT + 100));
@@ -42,7 +40,7 @@ class PlayAct extends Act {
         add(new BoundaryEntity(0, Settings.HEIGHT, Settings.PLAY_WIDTH, 20));
     }
 
-	public function update(dt: Float) {}
+    public function update(dt: Float) {}
 
     public function extraBall() {
         state.ballsLeft++;
@@ -55,7 +53,6 @@ class PlayAct extends Act {
     public function lostBall(ball: BallEntity) {
         if (ball.isMain) {
             if (state.ballsLeft > 0) {
-                trace(state.ballsLeft);
                 state.ballsLeft--;
                 resetBall(ball);
             } else {

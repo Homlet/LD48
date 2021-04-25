@@ -43,7 +43,7 @@ abstract class Entity implements Actor {
 
     private var group: EntityGroup;
 
-	private function new(x: Float, y: Float, drawableFactory: Scene -> Object,
+    private function new(x: Float, y: Float, drawableFactory: Scene -> Object,
                          bodyType: BodyType=null, entityType: CbType=null) {
         key = HashKey.next();
         this.drawableFactory = drawableFactory;
@@ -59,7 +59,7 @@ abstract class Entity implements Actor {
             body.cbTypes.add(entityType);
         }
         listeners = new ArrayList<Listener>();
-	}
+    }
 
     private function registerSensorCallback(event: CbEvent, type: Dynamic, callback: Entity -> Void) {
         var wrapper = (info: InteractionCallback) -> {
@@ -204,7 +204,7 @@ abstract class Entity implements Actor {
 
     private abstract function onRemove(): Void;
 
-	private function get_welded():Bool {
-		return weldee != null;
-	}
+    private function get_welded():Bool {
+        return weldee != null;
+    }
 }

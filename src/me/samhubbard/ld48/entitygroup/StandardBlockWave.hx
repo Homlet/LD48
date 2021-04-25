@@ -6,13 +6,13 @@ import me.samhubbard.ld48.entity.BlockEntity;
 
 class StandardBlockWave extends BlockWave {
 
-	public function generateBlocks(y: Float): ArrayList<Destroyable> {
-		var output = new ArrayList<Destroyable>();
-        var x = 20 + Settings.BLOCK_WIDTH;
+    public function generateBlocks(xOffset: Float, y: Float): ArrayList<Destroyable> {
+        var output = new ArrayList<Destroyable>();
+        var x = 20 + xOffset + Settings.BLOCK_WIDTH;
         while (x <= Settings.PLAY_WIDTH - 20 - Settings.BLOCK_WIDTH) {
             output.add(new BlockEntity(x, y));
             x += Settings.BLOCK_WIDTH + 20;
         }
         return output;
-	}
+    }
 }

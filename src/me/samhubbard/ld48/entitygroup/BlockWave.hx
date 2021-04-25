@@ -6,22 +6,28 @@ import polygonal.ds.ArrayList;
 
 abstract class BlockWave extends EntityGroup {
 
-	private abstract function generateBlocks(y: Float): ArrayList<Destroyable>;
+    private abstract function generateBlocks(xOffset: Float, y: Float): ArrayList<Destroyable>;
 
-    public function spawn(y: Float) {
-		removeAll();
-		for (block in generateBlocks(y)) {
-			add(block);
-		}
-	}
+    public function spawn(xOffset: Float, y: Float) {
+        removeAll();
+        for (block in generateBlocks(xOffset, y)) {
+            add(block);
+        }
+    }
 
-	private function onAdd() {}
+    private function onAdd() {}
 
-	private function update(dt:Float) {
-		for (block in entities) {
-			block.body.velocity.y = -Settings.BLOCK_SCROLL_SPEED;
-		}
-	}
+    private function update(dt:Float) {
+        for (block in entities) {
+            block.body.velocity.y = -Settings.BLOCK_SCROLL_SPEED;
+        }
 
-	private function onRemove() {}
+        if (entities.size == 0) {
+            act.remove(this);
+        }
+    }
+
+    private function onRemove() {
+        trace("COOL");
+    }
 }

@@ -47,13 +47,13 @@ class BallEntity extends Entity {
         return Vec2.get(0, 0);
     }
 
-	public function reset(x: Float, y: Float) {
+    public function reset(x: Float, y: Float) {
         var angle = Math.PI * (0.5 + 0.4 * (Math.random() - 0.5));
         body.position.setxy(x, y);
         body.velocity = Vec2.fromPolar(initSpeed, angle);
     }
 
-	private function onAdd() {
+    private function onAdd() {
         registerCollisionCallback(CbEvent.END, EntityType.PADDLE, (paddle) -> {
             body.velocity.x += cast(paddle, PaddleEntity).momentum;
             body.position.y += 2;
@@ -68,7 +68,9 @@ class BallEntity extends Entity {
             }
         });
         registerCollisionCallback(CbEvent.END, EntityType.BLOCK, (block) -> {
-            cast(block, Destroyable).destroy();
+            if (block != null && block is Destroyable) {
+                cast(block, Destroyable).destroy();
+            }
         });
     }
 
@@ -90,5 +92,5 @@ class BallEntity extends Entity {
         }
     }
 
-	private function onRemove() {}
+    private function onRemove() {}
 }

@@ -21,12 +21,15 @@ class WaveSpawnAreaEntity extends Entity {
 
     private var spawnY: Float;
 
+    private var waveCount: Int;
+
     public function new(x: Float, y: Float, width: Float, height: Float) {
         super(x, y, null, BodyType.STATIC, EntityType.SPAWNER);
 
         blockCount = 0;
         justSpawned = false;
         spawnY = y + height;
+        waveCount = 0;
 
         // Create the collider
         var shape = new Polygon(Polygon.rect(0, 0, width, height));
@@ -34,7 +37,7 @@ class WaveSpawnAreaEntity extends Entity {
         body.shapes.add(shape);
     }
 
-	private function onAdd() {
+    private function onAdd() {
         registerSensorCallback(CbEvent.BEGIN, EntityType.BLOCK, (block) -> {
             justSpawned = false;
             blockCount++;
@@ -47,20 +50,22 @@ class WaveSpawnAreaEntity extends Entity {
     private function spawn() {
         var wave: BlockWave = null;
         var roll = Math.random();
-        if (roll > 0.8) {
+        if (roll > 0.85) {
             wave = new StandardBlockWave();
         } else if (roll > 0.4) {
             wave = new HoleyBlockWave();
         } else if (roll > 0.2) {
-            wave = new PowerupBlockWave(MagnetBlockEntity);
-        } else if (roll > 0.1) {
             wave = new PowerupBlockWave(FreeBallBlockEntity);
+        } else if (roll > 0.1) {
+            wave = new PowerupBlockWave(MagnetBlockEntity);
         } else {
             wave = new PowerupBlockWave(ExtraBallBlockEntity);
         }
-        wave.spawn(spawnY);
+        var x = (waveCount % 2 == 0) ? 0 : 35;
+        wave.spawn(x, spawnY);
         act.add(wave);
         justSpawned = true;
+        waveCount++;
     }
 
     private function update(dt: Float) {
@@ -69,5 +74,5 @@ class WaveSpawnAreaEntity extends Entity {
         }
     }
 
-	private function onRemove() {}
+    private function onRemove() {}
 }

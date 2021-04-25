@@ -14,11 +14,11 @@ class PowerupBlockWave extends BlockWave {
         this.powerup = powerup;
     }
 
-	public function generateBlocks(y: Float): ArrayList<Destroyable> {
+    public function generateBlocks(xOffset: Float, y: Float): ArrayList<Destroyable> {
         var powerupPosition = Math.random() * Settings.PLAY_WIDTH;
         var powerupPlaced = false;
-		var output = new ArrayList<Destroyable>();
-        var x = 20 + Settings.BLOCK_WIDTH;
+        var output = new ArrayList<Destroyable>();
+        var x = 20 + xOffset + Settings.BLOCK_WIDTH;
         while (x <= Settings.PLAY_WIDTH - 20 - Settings.BLOCK_WIDTH) {
             if (x > powerupPosition && !powerupPlaced) {
                 output.add(Type.createInstance(powerup, [x, y]));
@@ -29,5 +29,5 @@ class PowerupBlockWave extends BlockWave {
             x += Settings.BLOCK_WIDTH + 20;
         }
         return output;
-	}
+    }
 }

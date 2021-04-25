@@ -28,9 +28,9 @@ class ExtraBallBlockEntity extends Destroyable {
         remove();
     }
 
-	private function onAdd() {}
+    private function onAdd() {}
 
     private function update(dt: Float) {}
 
-	private function onRemove() {}
+    private function onRemove() {}
 }

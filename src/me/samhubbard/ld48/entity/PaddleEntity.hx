@@ -51,10 +51,11 @@ class PaddleEntity extends Entity {
     }
 
     private function redraw() {
+        var height = 20 - Math.abs(10 * momentum / Settings.PADDLE_MAX_MOMENTUM);
         if (graphics != null) {
             graphics.clear();
             graphics.beginFill((isMagnet) ? Colour.MAGNET : Colour.PADDLE);
-            graphics.drawRect(-width / 2, -20, width, 20);
+            graphics.drawRect(-width / 2, -height * 2 / 3, width, height);
             graphics.endFill();
         }
     }
@@ -62,8 +63,6 @@ class PaddleEntity extends Entity {
     private function addBallToMagnet(ball: BallEntity) {
         ball.weldTo(this);
         ballsOnMagnet.set(ball);
-
-        redraw();
     }
 
     private function releaseMagnet() {
@@ -72,8 +71,6 @@ class PaddleEntity extends Entity {
             ball.body.velocity = Vec2.get(body.velocity.x, Settings.BALL_MAX_SPEED * 0.75);
         }
         ballsOnMagnet.clear();
-
-        redraw();
     }
 
     private function update(dt: Float) {
@@ -105,6 +102,8 @@ class PaddleEntity extends Entity {
         }
 
         body.position.x = Math.min(Math.max(width / 2, body.position.x), Settings.PLAY_WIDTH - width / 2);
+
+        redraw();
     }
 
 	private function onRemove() {}

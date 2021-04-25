@@ -18,14 +18,18 @@ class HUDEntity extends Entity {
 
     private var magnet: Graphics;
 
+    private var balls: Graphics;
+
     public function new(x: Float, y: Float, width: Float, state: PlayState) {
         super(x, y, (scene) -> {
             var root = new Object(scene);
             var font = DefaultFont.get();
             score = new Text(font, root);
-            score.text = "123";
+            drawScore();
             magnet = new Graphics(root);
-            drawMagnet(state.magnet);
+            drawMagnet();
+            balls = new Graphics(root);
+            drawBalls();
             return root;
         }, BodyType.STATIC);
 
@@ -33,22 +37,41 @@ class HUDEntity extends Entity {
         this.state = state;
     }
 
-    private function drawMagnet(level: Float) {
+    private function drawScore() {
+        score.text = '${state.score}';
+    }
+
+    private function drawMagnet() {
         magnet.clear();
         magnet.beginFill((state.magnetCooldown) ? Colour.MAGNET_COOLDOWN : Colour.MAGNET);
-        magnet.drawRect(0, 30, width, Settings.HUD_MAGNET_HEIGHT * level / 100);
+        magnet.drawRect(0, 30, width / 2, Settings.HUD_MAGNET_HEIGHT * state.magnet / 100);
         magnet.endFill();
+    }
+
+    private function drawBalls() {
+        balls.clear();
+        balls.beginFill(Colour.BALL_MAIN);
+        var b = 0;
+        while (b < state.ballsLeft) {
+            balls.drawRect(width / 2 + 10, 30 + 30 * b, 20, 20);
+            b++;
+        }
+        balls.endFill();
     }
 
 	private function onAdd() {}
 
     private function update(dt: Float) {
         if (score != null) {
-            score.text = '${state.score}';
+            drawScore();
         }
 
         if (magnet != null) {
-            drawMagnet(state.magnet);
+            drawMagnet();
+        }
+
+        if (balls != null) {
+            drawBalls();
         }
     }
 

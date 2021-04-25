@@ -4,4 +4,4 @@
 -lib polygonal-ds
 -js build/ld48.js
 -main me.samhubbard.ld48.Main
--debug
+# -debug

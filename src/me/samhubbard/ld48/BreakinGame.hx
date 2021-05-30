@@ -1,5 +1,6 @@
 package me.samhubbard.ld48;
 
+import hxd.Res;
 import me.samhubbard.ld48.act.StartAct;
 import me.samhubbard.game.Game;
 
@@ -10,6 +11,8 @@ class BreakinGame extends Game {
     }
 
     override function init() {
+        Res.initEmbed();
+
         setAct(StartAct);
     }
 }

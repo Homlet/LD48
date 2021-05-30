@@ -21,7 +21,7 @@ class FreeBallBlockEntity extends Destroyable {
         body.shapes.add(shape);
     }
 
-    public function destroy() {
+    public function onDestroy() {
         cast(act, PlayAct).addScore(Score.FREE_BALL_BLOCK);
         act.add(new BallEntity(body.position.x, body.position.y, Settings.BALL_MIN_SPEED, false));
         remove();

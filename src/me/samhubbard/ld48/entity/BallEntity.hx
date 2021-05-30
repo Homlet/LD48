@@ -1,6 +1,7 @@
 package me.samhubbard.ld48.entity;
 
-import hxd.Key;
+import hxd.snd.effect.Pitch;
+import hxd.Res;
 import nape.callbacks.CbEvent;
 import nape.callbacks.CbType;
 import nape.phys.BodyType;
@@ -55,10 +56,18 @@ class BallEntity extends Entity {
 
     private function onAdd() {
         registerCollisionCallback(CbEvent.END, EntityType.PADDLE, (paddle) -> {
+            var pitch = new Pitch(Math.random() * 0.05 + 1.5);
+            var hit = Res.sound.hit.play();
+            hit.addEffect(pitch);
+
             body.velocity.x += cast(paddle, PaddleEntity).momentum;
             body.position.y += 2;
         });
         registerCollisionCallback(CbEvent.END, CbType.ANY_BODY.excluding(EntityType.PADDLE), (other) -> {
+            var pitch = new Pitch(Math.random() * 0.05 + 0.975);
+            var hit = Res.sound.hit.play();
+            hit.addEffect(pitch);
+
             var normal = calcNormal();
             if (Math.abs(normal.y) < 0.5) {
                 var xSign = Std.int(normal.x / Math.abs(normal.x));

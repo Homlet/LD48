@@ -21,7 +21,7 @@ class ExtraBallBlockEntity extends Destroyable {
         body.shapes.add(shape);
     }
 
-    public function destroy() {
+    public function onDestroy() {
         var playAct = cast(act, PlayAct);
         playAct.addScore(Score.EXTRA_BALL_BLOCK);
         playAct.extraBall();

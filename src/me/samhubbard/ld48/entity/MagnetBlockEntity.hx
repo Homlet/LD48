@@ -21,7 +21,7 @@ class MagnetBlockEntity extends Destroyable {
         body.shapes.add(shape);
     }
 
-    public function destroy() {
+    public function onDestroy() {
         var playAct = cast(act, PlayAct);
         playAct.addScore(Score.MAGNET_BLOCK);
         playAct.refillMagnet(Settings.BLOCK_MAGNET_AMOUNT);

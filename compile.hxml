@@ -2,6 +2,7 @@
 -lib heaps
 -lib nape-haxe4
 -lib polygonal-ds
+-lib actuate
 -js build/ld48.js
 -main me.samhubbard.ld48.Main
-# -debug
+-debug
